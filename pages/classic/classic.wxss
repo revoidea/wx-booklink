@@ -1,4 +1,11 @@
+.container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .header{
+  width: 100%;
   display: flex;
   flex-direction: row;
   height: 100rpx;
@@ -15,4 +22,9 @@
 
 .like{
   margin-top: 6rpx;
+}
+
+.navi {
+  position: absolute;
+  bottom: 40rpx;
 }
