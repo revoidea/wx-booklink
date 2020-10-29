@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/classic/classic"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#000000",
+    "navigationBarTitleText": "书海畅游",
+    "navigationBarTextStyle": "white",
+    "navigationStyle": "default",
+    "enablePullDownRefresh": false
+  },
+  "sitemapLocation": "sitemap.json"
+}

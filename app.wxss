@@ -1,0 +1,5 @@
+/* 设置全局样式 */
+page{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 32rpx;
+}

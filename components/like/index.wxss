@@ -1,0 +1,28 @@
+/* components/like/index.wxss */
+.container{
+  /* 自适应 */
+  display: inline-flex;
+  flex-direction: row;
+  padding: 10rpx;
+  width: 92rpx;
+}
+
+/* 页面骨架简单，可以直接使用元素这种方式，页面骨架复杂，建议给样式起名字 */
+.container image{
+  width: 32rpx;
+  height: 28rpx;
+}
+
+.container text{
+   /* 平方（iOS） 思源（android） */
+  /* font-family: "PingFangSC-Thin"; */
+  font-size: 24rpx;
+  /* 文字是有间距的，消除文字间距，用line-height */
+
+  line-height: 24rpx;
+  color: #bbbbbb;
+  position: relative;
+  bottom: 10rpx;
+  left: 6rpx;
+
+}
