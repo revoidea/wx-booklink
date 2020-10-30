@@ -1,0 +1,22 @@
+.classic-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.classic-img{
+  width: 750rpx;
+  height: 500rpx;
+}
+
+.tag{
+  width: 46rpx;
+  height: 142rpx;
+  position: relative;
+  /* 与界面偏移方向取反 */
+  right: 310rpx;
+  bottom: 50rpx;
+}
+.content{
+  font-size: 30rpx;
+  max-width: 500rpx;
+}
