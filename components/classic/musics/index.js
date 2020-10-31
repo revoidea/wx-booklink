@@ -1,4 +1,6 @@
-import { classicBeh } from '../classic-beh.js'
+import { 
+  classicBeh 
+} from '../classic-beh.js'
 
 const mMgr = wx.getBackgroundAudioManager()
 

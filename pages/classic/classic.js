@@ -1,6 +1,11 @@
 // pages/classic/classic.js
-import {ClassicModel} from '../../models/classic.js'
-import {LikeModel} from '../../models/like.js'
+import {
+  ClassicModel
+} from '../../models/classic.js'
+import {
+  LikeModel
+} from '../../models/like.js'
+
 let classicModel = new ClassicModel()
 let likeModel = new LikeModel()
 
@@ -47,7 +52,8 @@ Page({
 
   //切换
   _updateClassic:function(nextOrPrevious){  
-    let index = this.data.classic.index
+    //定义变量能用const,就不用let
+    const index = this.data.classic.index
     classicModel.getClassic(index,nextOrPrevious,(res)=>{
       this._getLikeStatus(res.id,res.type)
       this.setData({

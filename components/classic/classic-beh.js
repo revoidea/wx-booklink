@@ -2,7 +2,7 @@
  * 定义classic下所有组件的共同behavior(行为)
  */
 
-let classicBeh = Behavior({
+const classicBeh = Behavior({
    /**
    * 行为的属性列表
    */

@@ -8,32 +8,36 @@ const tips = {
 }
 
 class HTTP {
-  request(params){
-    if(!params.method){
-      params.method = 'GET'
-    }
+  request({url,data={},method="GET"}){
+    return new Promise((resolve,reject) => {
+      this._request({url,resolve,reject,data,method})
+    })
+  }
+  _request({url,resolve,reject,data={},method="GET"}){
     //url data method
     wx.request({ //异步的
-      url: config.api_base_url + params.url,
-      method:params.method,
+      url: config.api_base_url + url,
+      method:method,
       header:{
         'content-type':'application/json',
         'appKey':config.appKey
       },
-      data:params.data,
+      data:data,
       success:(res) => {  //回调函数
         //startswith
         //endswith
-        let code = res.statusCode.toString()
+        const code = res.statusCode.toString()
         if(code.startsWith('2')) {
-          params.success && params.success(res.data)
+          resolve(res.data)
         }
         else{ //服务器异常
-          let error_code = res.data.error_code
+          reject()
+          const error_code = res.data.error_code
           this._show_error(error_code)
         }
       },
       fail:(err) => {  //api调用失败
+        reject()
         this._show_error(1)
       }
 
