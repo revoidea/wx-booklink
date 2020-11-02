@@ -62,7 +62,7 @@
 
 .content {
   text-indent: 58rpx;
-  font-weight: 500;
+  font-weight: 300;  /*500*/
 }
 
 .num {

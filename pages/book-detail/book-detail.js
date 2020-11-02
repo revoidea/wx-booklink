@@ -26,27 +26,46 @@ Page({
    */
   onLoad: function (options) {
     //bid
+    wx.showLoading()
     const bid = options.bid
     const detail = bookModel.getDetail(bid)
     const comments = bookModel.getComments(bid)
     const likeStatus = bookModel.getLikeStatus(bid)
-    detail.then(res => {
+
+    // 1 2 3 wx.hideLoading()
+    // 同时发送3个请求   串行（效率不高）
+
+    //返回新的Promise  合体
+    //.race 竞争
+    Promise.all([detail,comments,likeStatus])
+    .then(res => {
+      console.log(res)
       this.setData({
-        book:res
+        book:res[0],
+        comments:res[1].comments,
+        likeStatus:res[2].like_status,
+        likeCount:res[2].fav_nums
       })
-    })
-    comments.then(res => {
-       this.setData({
-         comments:res.comments
-       })
+      wx.hideLoading()
     })
 
-    likeStatus.then(res => {
-      this.setData({
-        likeStatus:res.like_status,
-        likeCount:res.fav_nums
-      })
-    })
+    // detail.then(res => {
+    //   this.setData({
+    //     book:res
+    //   })
+    // })
+    // comments.then(res => {
+    //    this.setData({
+    //      comments:res.comments
+    //    })
+    // })
+
+    // likeStatus.then(res => {
+    //   this.setData({
+    //     likeStatus:res.like_status,
+    //     likeCount:res.fav_nums
+    //   })
+    // })
   },
 
   onLike(event){
@@ -83,7 +102,6 @@ Page({
         title: '+ 1',
         icon:"none"
       })
-
       this.data.comments.unshift({
         content:comment,
         nums:1
