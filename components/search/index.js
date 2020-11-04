@@ -20,7 +20,7 @@ Component({
   properties: {
     more:{
       type:String,
-      observer:'_load_more' //自定义监听函数
+      observer:'loadMore' //自定义监听函数
     }
   },
 
@@ -32,7 +32,8 @@ Component({
     hotWords:[],
     searching:false,
     q:'',
-    loading:false
+    loading:false,
+    loadingCenter:false
   },
 
   attached(){
@@ -51,11 +52,11 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    _load_more(){
+    loadMore(){
       if(!this.data.q){
         return
       }
-      if(this.data.loading){
+      if(this.isLocked()){
         return 
       }
       //用户操作过快，会导致同时发送多个请求，导致数据出现重复
@@ -63,35 +64,61 @@ Component({
       // const length = this.data.dataArray.length
       if(this.hasMore()){
         //设置上锁
-        this.data.loading = true
-        bookModel.search(this.getCurrentStart(),this.data.q).then(res => {
-          this.setMoreData(res.books)
-          this.data.loading = false//解锁
-        })
+        this.locked()
+        bookModel.search(this.getCurrentStart(),this.data.q)
+          .then(res => {
+            this.setMoreData(res.books)
+            //解锁
+            this.unLocked()
+          },() => {
+            //网络断网，接口请求失败，也需要解锁，避免造成死锁
+            this.unLocked()
+          })
       }
     },
     onCancel(event){
+      this.initialize()
       this.triggerEvent('cancel',{},{})
     },
     onDelete(event){
-      this.setData({
-        searching:false
-      })
+      this.initialize()
+      this._closeResult()
     },
     onConfirm(event){
-      this.setData({
-        searching:true
-      })
-      this.initialize()
+      this._showResult()
+      this._showLoadingCenter()
       const q = event.detail.value || event.detail.text
+      this.setData({
+        q:q
+      })
       bookModel.search(0,q).then( res => {
         this.setMoreData(res.books)
         this.setTotal(res.total)
-        this.setData({
-          q:q
-        })
         keywordModel.addToHistory(q)
+        this._hideLoadingCenter()
       })
     },
+    _showLoadingCenter(){
+      this.setData({
+        loadingCenter:true
+      })
+    },
+    _hideLoadingCenter(){
+      this.setData({
+        loadingCenter:false
+      })
+    },
+    _showResult(){
+      this.setData({
+        searching:true
+      })
+    },
+    _closeResult(){
+      this.setData({
+        searching:false,
+        q:''
+      })
+    },
+    
   }
 })

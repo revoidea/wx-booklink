@@ -34,10 +34,14 @@
       </view>
     </view>
   </view>
-  
   <view wx:if="{{searching}}" class="books-container">
     <block wx:key="id" wx:for="{{dataArray}}">
-      <v-book book="{{item}}" class="book"/>
+      <v-book showLike="{{false}}" book="{{item}}" class="book"/>
     </block>
   </view>
+  <!--初始化加载 loading在中间-->
+  <v-loading class="loading-center" wx:if="{{loadingCenter}}"/>
+  <!--下拉更多 loading在底部-->
+  <v-loading class="loading" wx:if="{{loading}}"/>
+  <text wx:if="{{noneResult}}" class="empty-tip">没有搜索到书籍</text>
 </view>
