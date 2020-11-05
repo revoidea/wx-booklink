@@ -10,6 +10,9 @@ Component({
     count:{
       type:Number,
       value:0
+    },
+    readOnly:{
+      type:Boolean,
     }
   },
 
@@ -36,6 +39,9 @@ Component({
        *         1.发生变化时，通知页面
        *         2.并且携带一个状态
        */
+      if(this.properties.readOnly){
+        return
+      }
       let like = this.properties.like
       let count = this.properties.count
       count = like? count-1 : count+1

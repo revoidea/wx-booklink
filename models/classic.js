@@ -40,6 +40,14 @@ class ClassicModel extends HTTP {
     return latestIndex == index ? true : false
   }
 
+  getMyFavor(success){
+    const params = {
+      url:'classic/favor',
+      success:success
+    }
+    this.request(params)
+  }
+
   _setLatestIndex(index){
     //同步写入缓存（写入数据比较小的时候，建议用）
     wx.setStorageSync('latest', index)
